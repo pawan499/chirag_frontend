@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <title>Chirag Eye Care &amp; Optics</title>
+  <rect width="64" height="64" rx="16" fill="#16394B"/>
+  <g transform="translate(4 4) scale(.875)">
+    <path d="M6 34C18 14 46 14 58 34C46 54 18 54 6 34Z" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M33 15C34 24 43 27 43 35A11 11 0 0 1 21 35C21 28 28 24 33 15Z" fill="#F5B544"/>
+    <path d="M32 29C32 34 37 36 37 40A5 5 0 0 1 27 40C27 36 30 33 32 29Z" fill="#FFFFFF"/>
+    <path d="M32 5V9M12 13L15 16M52 13L49 16" stroke="#F5B544" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

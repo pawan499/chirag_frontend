@@ -1,0 +1,5 @@
+- [ ] Establish typed demo/API layer and shared shell
+- [ ] Replace placeholder with login and dashboard
+- [ ] Add patients, visit, medicines, spectacles, payments, reports, settings routes
+- [ ] Add responsive states, metadata, and environment example
+- [ ] Validate build and live preview workflow

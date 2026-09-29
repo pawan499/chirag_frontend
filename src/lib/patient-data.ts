@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { investigationSchema } from "./investigation";
 import { apiRequest } from "./app-data";
 
 const optionalText = <T extends z.ZodType<string>>(schema: T) =>
@@ -17,6 +18,7 @@ export const patientFormSchema = z.object({
   bloodGroup: z.string().max(10).optional(),
   allergies: z.string().max(1000).optional(),
   medicalNotes: z.string().max(3000).optional(),
+  investigation: investigationSchema.optional(),
 });
 export type PatientFormValues = z.infer<typeof patientFormSchema>;
 export type PatientRecord = Omit<PatientFormValues, "gender"> & {

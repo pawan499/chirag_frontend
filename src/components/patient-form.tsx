@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "./icons";
+import { investigationFields } from "@/lib/investigation";
+import { VisionInput } from "./vision-options";
 import { FormMessage } from "./ui";
 import { ApiRequestError } from "@/lib/app-data";
 import {
@@ -22,6 +24,7 @@ export function PatientForm({
 }) {
   const {
     register,
+    control,
     handleSubmit,
     setError,
     clearErrors,
@@ -149,6 +152,82 @@ export function PatientForm({
                 />
               </Field>
             </div>
+          </div>
+        </section>
+        <section className="panel space-y-6 p-5">
+          <div>
+            <h2 className="font-bold text-ink">Registration investigation</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Optional eye readings recorded at registration.
+            </p>
+          </div>
+          {(["rightEye", "leftEye"] as const).map((side) => (
+            <fieldset key={side}>
+              <legend className="mb-4 font-semibold">
+                {side === "rightEye" ? "Right eye · OD" : "Left eye · OS"}
+              </legend>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {investigationFields.map((item) => {
+                  const name = `investigation.${side}.${item.key}` as const;
+                  const error = errors.investigation?.[side]?.[item.key]?.message;
+                  return (
+                    <Field key={item.key} label={item.label} error={error}>
+                      {"min" in item ? (
+                        <input
+                          {...register(name, {
+                            setValueAs: (value) => (value === "" ? undefined : Number(value)),
+                          })}
+                          className="field-control"
+                          type="number"
+                          min={item.min}
+                          max={item.max}
+                          step={item.key === "axis" ? "1" : "any"}
+                          placeholder={item.placeholder}
+                        />
+                      ) : (
+                        <Controller
+                          name={name}
+                          control={control}
+                          render={({ field }) => (
+                            <VisionInput
+                              name={field.name}
+                              ref={field.ref}
+                              value={String(field.value ?? "")}
+                              onValueChange={field.onChange}
+                              onBlur={field.onBlur}
+                              near={item.key === "nearVision"}
+                              maxLength={40}
+                              placeholder={item.placeholder}
+                            />
+                          )}
+                        />
+                      )}
+                    </Field>
+                  );
+                })}
+              </div>
+            </fieldset>
+          ))}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="PD (mm)" error={errors.investigation?.pd?.message}>
+              <input
+                {...register("investigation.pd", {
+                  setValueAs: (value) => (value === "" ? undefined : Number(value)),
+                })}
+                className="field-control"
+                type="number"
+                min={0}
+                max={100}
+                step="any"
+              />
+            </Field>
+            <Field label="Investigation remarks" error={errors.investigation?.remarks?.message}>
+              <textarea
+                {...register("investigation.remarks")}
+                className="field-control min-h-24"
+                maxLength={2000}
+              />
+            </Field>
           </div>
         </section>
         <FormMessage>{errors.root?.message}</FormMessage>

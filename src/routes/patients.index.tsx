@@ -1,3 +1,4 @@
+import { Eye } from "lucide-react";
 import { DeletePatient } from "@/components/delete-patient";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -134,7 +135,7 @@ function Patients() {
                             params={{ id: patient._id }}
                             className="patient-action"
                           >
-                            <MoreHorizontal size={17} />
+                            <Eye size={17} />
                           </Link>
                         </div>
                       </td>

@@ -1,3 +1,5 @@
+import { PaymentEditor } from "@/components/payment-editor";
+import { paymentTime } from "@/lib/payment-time";
 import { ClinicalAssessment } from "./clinical-assessment";
 import { InvestigationDetails } from "./investigation-details";
 import { eyeLabels } from "@/lib/clinical-options";
@@ -365,10 +367,11 @@ export function PatientClinic({ id }: { id: string }) {
             className="border-t pt-3 text-sm flex flex-wrap items-center justify-between gap-3"
           >
             <p>
-              {p.paymentId} · {new Date(p.paymentDate).toLocaleDateString()} · {p.paymentMethod} ·{" "}
+              {p.paymentId} · {paymentTime(p.paymentDate)} · {p.paymentMethod} ·{" "}
               {formatCurrency(p.amount)} {p.referenceNumber && `· ${p.referenceNumber}`}
             </p>
             <ReceiptLink kind="payment" id={p._id} />
+            <PaymentEditor payment={p} />
           </div>
         ))}
       </section>

@@ -1,3 +1,4 @@
+import { DeletePatient } from "@/components/delete-patient";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -121,16 +122,17 @@ function Patients() {
                             title="Edit patient"
                             to="/patients/$id/edit"
                             params={{ id: patient._id }}
-                            className="btn-ghost"
+                            className="patient-action"
                           >
-                            <Pencil size={15} />
+                            <Pencil size={17} />
                           </Link>
+                          <DeletePatient id={patient._id} name={patient.name} stayOnList />
                           <Link
                             aria-label={`Open ${patient.name}`}
                             title="Open patient"
                             to="/patients/$id"
                             params={{ id: patient._id }}
-                            className="btn-ghost"
+                            className="patient-action"
                           >
                             <MoreHorizontal size={17} />
                           </Link>
@@ -155,6 +157,18 @@ function Patients() {
                   <p className="mt-3 text-sm text-muted-foreground">
                     {patient.address || "No address recorded"}
                   </p>
+                  <div className="mt-3 flex items-center gap-2">
+                    <Link
+                      to="/patients/$id/edit"
+                      params={{ id: patient._id }}
+                      className="patient-action"
+                      aria-label={`Edit ${patient.name}`}
+                      title="Edit patient"
+                    >
+                      <Pencil size={17} />
+                    </Link>
+                    <DeletePatient id={patient._id} name={patient.name} stayOnList />
+                  </div>
                   <div className="mt-4 flex gap-2">
                     <Link
                       to="/patients/$id"

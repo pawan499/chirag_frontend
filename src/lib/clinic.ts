@@ -44,6 +44,8 @@ export type ClinicOrder = {
   status: string;
 };
 export type ClinicPayment = {
+  editedAt?: string;
+  editHistory?: { note: string; editedAt: string }[];
   _id: string;
   paymentId: string;
   patient: ClinicVisit["patient"];

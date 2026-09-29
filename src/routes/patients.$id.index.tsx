@@ -1,3 +1,4 @@
+import { DeletePatient } from "@/components/delete-patient";
 import "@/receipt.css";
 import { PatientClinic } from "@/components/patient-clinic";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -76,15 +77,18 @@ function PatientProfile() {
         </Link>
       </div>
       <section className="panel mb-5 p-5">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="eyebrow">{patient.patientId}</p>
             <h1 className="page-title mt-1">{patient.name}</h1>
           </div>
-          <Link to="/patients/$id/edit" params={{ id }} className="btn-secondary">
-            <Pencil size={15} />
-            Edit
-          </Link>
+          <div className="flex shrink-0 items-center gap-2">
+            <Link to="/patients/$id/edit" params={{ id }} className="btn-secondary">
+              <Pencil size={15} />
+              Edit
+            </Link>
+            <DeletePatient id={id} name={patient.name} />
+          </div>
         </div>
         <dl className="mt-5 grid gap-5 md:grid-cols-2">
           {fields.map(([label, value]) => (

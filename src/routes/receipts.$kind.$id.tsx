@@ -1,3 +1,4 @@
+import { paymentTime } from "@/lib/payment-time";
 import { ClinicalAssessment } from "@/components/clinical-assessment";
 import { eyeLabels } from "@/lib/clinical-options";
 import { InvestigationDetails } from "@/components/investigation-details";
@@ -237,6 +238,12 @@ function ReceiptPage() {
               </p>
             </div>
             {payment.notes && <p>{payment.notes}</p>}
+            {payment.editedAt && <p>Edited · {paymentTime(payment.editedAt)} IST</p>}
+            {payment.editHistory?.map((edit, i) => (
+              <p key={i}>
+                {paymentTime(edit.editedAt)} IST — {edit.note}
+              </p>
+            ))}
           </section>
         ) : (
           <section className="receipt-section">

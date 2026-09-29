@@ -1,3 +1,5 @@
+import { PaymentEditor } from "@/components/payment-editor";
+import { paymentTime } from "@/lib/payment-time";
 import { ReceiptLink } from "@/components/receipt-link";
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -81,15 +83,14 @@ function Payments() {
                     <strong>{formatCurrency(p.amount)}</strong>
                   </div>
                   <p className="text-sm mt-2">
-                    {p.paymentId} ·{" "}
-                    {new Date(p.paymentDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
-                    · {p.paymentMethod}
+                    {p.paymentId} · {paymentTime(p.paymentDate)} · {p.paymentMethod}
                   </p>
                   <p className="text-sm">
                     {p.referenceNumber} {p.notes}
                   </p>
                   <div className="mt-3">
                     <ReceiptLink kind="payment" id={p._id} />
+                    <PaymentEditor payment={p} />
                   </div>
                 </section>
               ))}

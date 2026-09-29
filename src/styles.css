@@ -206,7 +206,7 @@
 }
 .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.5rem; background: var(--primary); color: var(--primary-foreground); min-height: 42px; padding: 0.65rem 1rem; font-size: 0.86rem; font-weight: 700; transition: background 150ms, transform 150ms; }
 .btn-primary:hover { background: oklch(0.28 0.06 250); }
-.btn-primary:active { transform: translateY(1px); }
+
 .btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--card); color: var(--foreground); min-height: 42px; padding: 0.65rem 1rem; font-size: 0.86rem; font-weight: 700; transition: background 150ms; }
 .btn-secondary:hover { background: var(--accent); }
 .btn-ghost { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--muted-foreground); min-height: 38px; padding: 0.45rem 0.6rem; font-size: 0.84rem; font-weight: 700; }
@@ -241,3 +241,37 @@
 
 .vision-menu { width: var(--radix-popover-trigger-width); max-width: calc(100vw - 24px); }
 .vision-menu-options { max-height: min(256px, calc(var(--radix-popover-content-available-height) - 42px)); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+
+/* Matching patient row actions, with colour identifying deletion. */
+.patient-action { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--muted-foreground); transition: background-color 150ms, color 150ms; }
+.patient-action:hover { background: var(--accent); color: var(--foreground); }
+.patient-action-danger, .patient-action-danger:hover { color: #dc2626; }
+.patient-action:focus-visible { outline: 2px solid var(--info); outline-offset: 2px; }
+.patient-action:disabled { opacity: 0.5; cursor: wait; }
+
+/* Shared feedback for native buttons, custom controls and button-style links. */
+:is(button, [role="button"], .app-button, .btn-primary, .btn-secondary, .btn-ghost, .patient-action, input[type="submit"], input[type="button"], input[type="reset"]) {
+  transition: translate 160ms ease, filter 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(button, [role="button"], .app-button, .btn-primary, .btn-secondary, .btn-ghost, .patient-action, input[type="submit"], input[type="button"], input[type="reset"]):not(:disabled):not([aria-disabled="true"]):not([data-disabled]):hover {
+    translate: 0 -1px;
+    filter: brightness(0.96);
+    box-shadow: 0 3px 8px rgb(15 23 42 / 12%);
+  }
+}
+:is(button, [role="button"], .app-button, .btn-primary, .btn-secondary, .btn-ghost, .patient-action, input[type="submit"], input[type="button"], input[type="reset"]):not(:disabled):not([aria-disabled="true"]):not([data-disabled]):active {
+  translate: 0 0;
+  filter: brightness(0.92);
+  box-shadow: none;
+}
+:is(button, [role="button"], .app-button, .btn-primary, .btn-secondary, .btn-ghost, .patient-action):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(button, [role="button"], .app-button, .btn-primary, .btn-secondary, .btn-ghost, .patient-action, input[type="submit"], input[type="button"], input[type="reset"]) {
+    transition: none;
+    translate: none !important;
+  }
+}
